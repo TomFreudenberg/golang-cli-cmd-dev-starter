@@ -1,7 +1,7 @@
-# syntax = docker/dockerfile:1-experimental
+# syntax = docker/dockerfile:1.2
 
 # Build process is based on alpine image
-FROM --platform=${BUILDPLATFORM} golang:1.16.3-alpine AS base
+FROM --platform=${BUILDPLATFORM} golang:1.16-alpine AS base
 WORKDIR /app
 
 
