@@ -19,11 +19,11 @@ is work in progress and may change by time and better knowledge.
 As a demonstration of our guideliness we prepared a fully equipped
 command with its package and tests. Check out details and read the
 command line documentation for the example
-<a href="/pkg/cmd/hello/">hello command</a>.
+[hello command](https://github.com/TomFreudenberg/golang-cli-cmd-dev-starter/tree/master/src/cmd/hello).
 
 To read the documentation of the classes and functions for the
 hello command you may refer to its packages documentation at
-<a href="/pkg/internal/cmd/hello/">pkg/internal/cmd/hello</a>.
+[pkg/internal/cmd/hello](https://github.com/TomFreudenberg/golang-cli-cmd-dev-starter/tree/master/src/internal/cmd/hello).
 
 As you may know, godoc allows additional flags while browsing packages.
 Try `?m=all` or `?m=flat` as optional parameter to your godoc URL.
@@ -409,7 +409,7 @@ make shell GOOS=linux GOARCH=amd64
 ### Browse package documentation
 
 Check out additional documenation for commands and packages
-at [/cmd](http://localhost:6060/cmd) and [/pkg](http://localhost:6060/pkg).
+at [localhost:6060/cmd](http://localhost:6060/cmd) and [localhost:6060/pkg](http://localhost:6060/pkg).
 
 
 <br>
