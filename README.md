@@ -1,5 +1,7 @@
 # Golang cli command development starter
 
+<img src="https://repository-images.githubusercontent.com/361827236/132d2200-a6d2-11eb-89d6-54601da76a4e">
+
 An opiniated starter to create cli commands with [golang](https://golang.org/) and
 [mow.cli](https://github.com/jawher/mow.cli) using [docker](https://www.docker.com/)
 images for development processes.
