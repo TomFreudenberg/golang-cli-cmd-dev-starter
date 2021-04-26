@@ -1,453 +1,481 @@
-# Golang cli command development starter
+<!--{
+  "Title": "Documentation",
+  "Path": "/doc/"
+}-->
 
-<img src="https://repository-images.githubusercontent.com/361827236/132d2200-a6d2-11eb-89d6-54601da76a4e">
+<div id="manual-nav"></div>
 
-An opiniated starter to create cli commands with [mow.cli](https://github.com/jawher/mow.cli)
-using [golang](https://golang.org/) for development.
+<h2 id="general">General documentation</h2>
 
-<br>
-
-## General documentation
-
-<br>
-
+<p>
 So far we have prepared some kind of `style-guide` which defines
 our opiniated go project structure and code layout. Currently this
 is work in progress and may change by time and better knowledge.
+</p>
 
+<p>
 As a demonstration of our guideliness we prepared a fully equipped
 command with its package and tests. Check out details and read the
 command line documentation for the example
-[hello command](https://github.com/TomFreudenberg/golang-cli-cmd-dev-starter/tree/master-local/src/cmd/hello).
+<a href="/pkg/cmd/hello/">hello command</a>.
+</p>
 
+<p>
 To read the documentation of the classes and functions for the
 hello command you may refer to its packages documentation at
-[pkg/internal/cmd/hello](https://github.com/TomFreudenberg/golang-cli-cmd-dev-starter/tree/master-local/src/internal/cmd/hello).
+<a href="/pkg/internal/cmd/hello/">pkg/internal/cmd/hello</a>.
+</p>
 
+<p>
 As you may know, godoc allows additional flags while browsing packages.
 Try `?m=all` or `?m=flat` as optional parameter to your godoc URL.
 The first will show also all non-exported and internal symbols from
 packages while the latter will display a simple table result.
+</p>
 
-Cheers,<br>Tom (Oct, 2021)
+<p>
+Cheers (Apr, 2021)
+</p>
 
-<br>
 
-<br>
 
-## Quick start
+<h2 id="build-source">Build sources</h2>
 
-<br>
 
-Clone the repository and install necessary go tools:
 
-<pre>
-# just clone from GitHub
-git clone -b master-local --depth=1 https://github.com/TomFreudenberg/golang-cli-cmd-dev-starter.git my-project
+<h3>Go - How to work with packages, commands and tests</h3>
 
-# drop connection to GitHub template while want to create your own stuff
-rm -rf my-project/.git
-
-# enter project directory
-cd my-project
-
-# update versions and go.sum
-make go-mod
-
-# install necessary gol tools
-make go-tools
-</pre>
-
-Just run the first command:
-
-<pre>
-make run CMD=hello
-</pre>
-
-Or build and run the first command:
-
-<pre>
-make cmd CMD=hello
-./bin/hello
-</pre>
-
-<br>
-
-<br>
-
-## Run and build sources
-
-### Go - How to work with packages, commands and tests
-
+<p>
 You have to run all commands from the root folder of your `project`.<br>
 All commands run via `Makefile` macros and are processed by local go command.
+</p>
 
 
-<br>
 
-### Run your `go cmd sources`
+<h3>Run your `go cmd sources`</h3>
 
+<p>
 Simply run your `go cmd sources` by:
+</p>
 
 <pre>
 make run CMD=hello
 </pre>
 
+<p>
 This will compile and run the specific command. You may
 add additional `arguments` when set the ARGS environment.
+</p>
 
 <pre>
 make run CMD=hello ARGS="--help"
 </pre>
 
 
-<br>
 
-### Build your `go cmd sources`
+<h3>Build your `go cmd sources`</h3>
 
+<p>
 Simply build your `go cmd sources` by:
+</p>
 
 <pre>
 make cmd CMD=hello
 </pre>
 
+<p>
 This will build and install the specific command into
 the project workspace `bin/` folder.
+</p>
 
 <pre>
 make cmd-all
 </pre>
 
+<p>
 This macro allows to build all of your sources:
+</p>
 
-#### *** Reminder ***
-
+<h4>*** Reminder ***</h4>
+<p>
 <i>As per default the Makefile macros get your system OS and
 ARCH by the `uname` tool. If you do not specify other, the
 build binaries in `bin/` should work on your system.</i>
+</p>
 
+<p>
 By setting other OS or ARCH when running `make` it is also
 possible to build binaries for other environments. Those will be
 stored in a sub-folder inside `bin/` like `bin/linux/arm64`.
+</p>
 
 <pre>
 make cmd CMD=hello GOOS=linux GOARCH=amd64
 </pre>
 
-<br>
 
-<br>
 
-## Testing and benchmarking source
+<h2 id="test-source">Testing and benchmarking source</h2>
 
-### Organize and split test sources
+<h3>Organize and split test sources</h3>
 
+<p>
 We have devided our test components into `unit`, `extra` and
 `integration` tests. If and when some test will be run is
 handled by build tags (a.k.a build constraints or conditional
 builds) which must be added to your test files. In very rare
 situations you may also split your `example` tests.
+</p>
 
+<p>
 Take the right tag comment for your needs.
+</p>
 
+<p>
 Unit test source:
+</p>
 
 <pre>
 //go:build !without_unit
 </pre>
 
+<p>
 Seldom example source:
+</p>
 
 <pre>
 //go:build !without_example
 </pre>
 
+<p>
 Extra test source:
+</p>
 
 <pre>
 //go:build extra
 </pre>
 
+<p>
 Integration test source:
+</p>
 
 <pre>
 //go:build integration
 </pre>
 
+<p>
 Checkout the `testing` package and its documentation
-at: [golang.org/pkg/testing](https://golang.org/pkg/testing).
+at: <a href="https://golang.org/pkg/testing">
+https://golang.org/pkg/testing</a>.
+</p>
 
 
-<br>
 
-### Run your command and package tests
+<h3>Run your command and package tests</h3>
 
+<p>
 Without any additional tags only the `unit` tests
 will be started by default.
+</p>
 
+<p>
 You may run single command tests by:
+</p>
 
 <pre>
 make test CMD=hello
 </pre>
 
+<p>
 And its packages tests by:
+</p>
 
 <pre>
 make test PKG=internal/cmd/hello
 </pre>
 
+<p>
 Enable an extended DEBUG flag to get more verbose output:
+</p>
 
 <pre>
 make test DEBUG=1 PKG=internal/cmd/hello
 </pre>
 
+<p>
 To include also integration and extra tests:
+</p>
 
 <pre>
 make test DEBUG=1 PKG=internal/cmd/hello TAGS=integration,extra
 </pre>
 
+<p>
 But without unit tests:
+</p>
 
 <pre>
 make test DEBUG=1 PKG=internal/cmd/hello TAGS=integration,extra,without_unit
 </pre>
 
+<p>
 You may filter your TestMethods by additionally providing a symbol matcher,
 e.g. just run test functions containing "Hello":
+</p>
 
 <pre>
 make test DEBUG=1 PKG=internal/cmd/hello TAGS=integration,extra FILTER=Hello
 </pre>
 
+<p>
+Some additional usefull options to filter your desired tests
+are described at: http://stackoverflow.com/a/16161605.
+</p>
+
+<p>
 If neither CMD nor PKG should be tested but certain files, you may use the
 FILES argument. In that case all files necessary for the specific test file
 must be included. Filemasks are allowed like `./my/*help*.go` etc.
+</p>
 
 <pre>
 make test DEBUG=1 FILES=internal/cmd/hello*
 </pre>
 
+<p>
 The FILTER flag will work on FILES as well but not the TAGS flag.
+</p>
 
 
-<br>
 
-### Run on multiple packages
+<h3>Run on multiple packages</h3>
 
+<p>
 You may specify also a set of components to test with the special
 go directive `...`. This allows to run components within a path
 or sub-pathes.
+</p>
 
+<p>
 Run all unit tests of all commands named like `hello*` in directory tree
 `internal/cmd` by:
+</p>
 
 <pre>
 make test DEBUG=1 PKG=internal/cmd/hello...
 </pre>
 
 
-<br>
 
-### Run your command and package benchmarks
+<h3>Run your command and package benchmarks</h3>
 
+<p>
 Without any additional tags only the `unit` benchmarks
 will be started by default.
+</p>
 
+<p>
 You may run single command benchmark by:
+</p>
 
 <pre>
 make bench CMD=hello
 </pre>
 
+<p>
 And its packages benchmarks by:
+</p>
 
 <pre>
 make bench PKG=internal/cmd/hello
 </pre>
 
+<p>
 To include also integration and extra benchmarks:
+</p>
 
 <pre>
 make bench PKG=internal/cmd/hello TAGS=integration,extra
 </pre>
 
+<p>
 But without unit benchmarks:
+</p>
 
 <pre>
 make bench PKG=internal/cmd/hello TAGS=integration,extra,without_unit
 </pre>
 
+<p>
 You may filter your BenchmarkMethods by additionally providing a symbol
 matcher, e.g. just run benchmark functions containing "Hello":
+</p>
 
 <pre>
 make bench PKG=internal/cmd/hello TAGS=integration,extra FILTER=Hello
 </pre>
 
+<p>
 Using BENCH_TIME flag, you can specify the overall maximum time a
 benchmark function will run. The default is defined by 5 seconds each.
 In addition the BENCH_CPU flag allows to set the maximum number of
 parallel benchmark processes. The default is defined by 1 cpu.
+</p>
 
 <pre>
 make bench PKG=internal/cmd/hello TAGS=integration,extra FILTER=Hello BENCH_TIME=2 BENCH_CPU=2
 </pre>
 
+<p>
 If you like to use a specialized profiling tool, you may safe the profiling
 data as a output file.
+</p>
 
 <pre>
 make bench PKG=internal/cmd/hello TAGS=integration,extra FILTER=Hello BENCH_OUT=./hello.profile.out
 </pre>
 
+<p>
 If neither CMD nor PKG should be benchmarked but certain files, you may use the
 FILES argument. In that case all files necessary for the specific test file
 must be included. Filemasks are allowed like `./my/*help*.go` etc.
+</p>
 
 <pre>
 make bench FILES=internal/cmd/hello*
 </pre>
 
+<p>
 The FILTER flag will work on FILES as well but not the TAGS flag.
+</p>
 
-#### *** Reminder ***
+<h4>*** Reminder ***</h4>
+<p>
+<i>A good explantion on howto benchmark and profile your Golang codes
+is located at [blog.jetbrains.com/go](https://blog.jetbrains.com/go/2019/04/03/profiling-go-applications-and-tests/).</i>
+</p>
 
-A good explantion on howto benchmark and profile your Golang codes
-is located at [blog.jetbrains.com/go](https://blog.jetbrains.com/go/2019/04/03/profiling-go-applications-and-tests/).
 
-<br>
 
-<br>
+<h2 id="format-and-lint">Formatting and linting</h2>
 
-## Formatting and linting
+<h3>Format your source codes</h3>
 
-### Format your source codes
-
+<p>
 The golang philosophy includes the only `one` way of source code
 formatting. While others allow to modify the linter and the cop
-rules, golang has its superman rule.
-
+rules, golang has its superman rule.<br>
+<br>
 To adjust your code and being alignt with their ruleset you may
 use the `gofmt` command to auto-format your sources.
+</p>
 
 <pre>
 make fmt PKG=internal/cmd/hello
 </pre>
 
+<p>
 While this will only show the filenames not fitting the rules
 looking in component folder and sub-folders, you may also view
 the supposed changes.
+</p>
 
 <pre>
 make fmt PKG=internal/cmd/hello DIFF=1
 </pre>
 
+<p>
 If fine with the changes you can let the tool automatically modify
 your desired files. The output will show every file was changed.
+</p>
 
 <pre>
 make fmt PKG=internal/cmd/hello OVERWRITE=1
 </pre>
 
 
-<br>
 
-### Lint your source codes
+<h3>Lint your source codes</h3>
 
+<p>
 Last but not least there is also a linter available to let
 you know how to write your source code and do it the
-golang way.
-
+golang way.<br>
+<br>
 To get the hints to your code you may use the `golint` command.
+</p>
 
 <pre>
 make lint PKG=internal/cmd/hello
 </pre>
 
 
-<br>
 
-<br>
+<h2>Running go</h2>
 
-## Running go
+<h3>Access go while using environment</h3>
 
-### Access go while using environment
-
+<p>
 If you need sometimes to test or enter some special comamnds
 directly inside the environment go is running you may use
 th `go` macro. Apply additional command options by `ARGS` argument.
+</p>
 
 <pre>
 make go ARGS="--help"
 </pre>
 
-
-<br>
-
-### Install and update modules from go.mod
+<h3>Install and update modules from go.mod</h3>
 
 <pre>
 make go-mod
 </pre>
 
-
-<br>
-
-### Install and update necessary go tools
+<h3>Install and update necessary go tools</h3>
 
 <pre>
 make go-tools
 </pre>
 
 
-<br>
 
-### Clenup go packages and tools
+<h2 id="go-doc">Documentation</h2>
 
-<pre>
-make clean
-</pre>
+<h3>Run `godoc` webserver</h3>
 
-If you get "Permission denied" errors when dropping the project folder
-or the `.go` folder inside the project, than you should use `make clean`
-while go installs the packages with _read only_ flag.
-
-
-<br>
-
-<br>
-
-## Documentation
-
-### Run `godoc` webserver
-
+<p>
 godoc will start a local webserver and present and generate all
 documentation within your sources.
+</p>
 
 <pre>
 make godoc
 </pre>
 
-Then direct your browser to: [localhost:6060/](http://localhost:6060/)
+<p>
+Then direct your browser to:
+<a href="http://localhost:6060/">
+http://localhost:6060/</a>
+</p>
 
+<h3>Customize the documentation</h3>
 
-<br>
-
-### Customize the documentation
-
+<p>
 The enhanced godoc does allow to build your personal site documentation
 for your project.
+</p>
 
+<p>
 You may edit the navigation buttons while modifying the file
 `doc/templates/navmenu.html`.
+</p>
 
+<p>
 Also you will adjust the documention while working on the `html` files
 located in the `doc/` folder. It is possible to add more private pages
 to the documentation server. Pay attention to the comment header of
 the existing files. This will allow to set title and path.
+</p>
 
 <pre>
 &lt;!--{
@@ -457,21 +485,22 @@ the existing files. This will allow to set title and path.
 </pre>
 
 
-<br>
 
-<br>
+<h2 id="source-documentation">Source documentation</h2>
 
-## Source documentation
+<h3>How to document and write comments</h3>
 
-### How to document and write comments
-
+<p>
 You may employ some formatting while commenting your
 source. E.g. a single line starting with Capital letter
 and having no characters like `.` `,` `()` etc. is interpreted
 as a heading (h1)
+</p>
 
+<p>
 Attached you find a few comment lines which will produce
 a "formatted" output when posting in `*.go` file.
+</p>
 
 <pre>
 Forced line breaks in
@@ -543,23 +572,20 @@ Lines 2.
 </pre>
 
 
-<br>
 
-<br>
+<h2 id="hints">Hints and tips</h2>
 
-## Hints and tips
+<h3>Make `all` macros</h3>
 
-### Make `all` macros
-
+<p>
 The main `macros` all support also a `-all` macro which will
 go thru all of your code.
+</p>
 
 <pre>
 make cmd-all [GOOS=?] [GOARCH=?]
 
 make test-all [DEBUG=1]
-
-make bench-all
 
 make fmt-all [OVERWRITE=1]
 
@@ -567,20 +593,10 @@ make lint-all
 </pre>
 
 
-<br>
 
-### Browse package documentation
+<h3>Browse package documentation</h3>
 
 Check out additional documenation for commands and packages
-at [localhost:6060/cmd](http://localhost:6060/cmd) and [localhost:6060/pkg](http://localhost:6060/pkg).
+at <a href="/cmd">/cmd</a> and <a href="/pkg">/pkg</a>.
 
 
-<br>
-
-<br>
-
-# Author & Credits
-
-Author: [Tom Freudenberg](https://about.me/tom.freudenberg)
-
-Copyright (c) 2021 [Tom Freudenberg](https://twitter.com/TomFreudenberg/), released under the MIT license
